@@ -6,4 +6,15 @@ function logging(message){
 
 }
 
-module.exports = logging;
+function addNaive(a, b){
+
+  return a + b;
+
+}
+
+module.exports.add = (a, b) => {
+  return a + b;
+};
+
+module.exports.logging = logging;
+module.exports.addNaive = addNaive;
