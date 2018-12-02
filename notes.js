@@ -1,23 +1,47 @@
 const fs = require('fs');
 
+const fileName = 'notes-data.json';
+
 console.log(" Starting nodes.js ")
+
+var fetchNotes = () => {
+
+    try{
+
+        var notesString = fs.readFileSync(fileName);
+        return JSON.parse(notesString);
+
+    }catch(e){
+        return [];
+    }
+
+}
+
+var saveNotes = (notes) => {
+
+    fs.writeFileSync(fileName, JSON.stringify(notes));
+
+}
 
 var addNote = (title, body) => {
 
     console.log('Adding note', title, body);
     
-    var notesArray = [];
+    var notesArray = fetchNotes();
     var note = {
         title: title,
         body: body
     }
 
-    var notesString = fs.readFileSync('notes-data.json');
-    notesArray = JSON.parse(notesString);
+    var duplicateNotes = notesArray.filter((note) => note.title === title);
 
-    notesArray.push(note);
-    fs.writeFileSync('notes-data.json', JSON.stringify(notesArray));
-
+    if(duplicateNotes.length === 0){
+        notesArray.push(note);
+        saveNotes(notesArray);
+    }else{
+        console.log("Duplicates found!");
+    }
+    
 }
 
 var getAll = () => {
