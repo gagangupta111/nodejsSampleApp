@@ -20,7 +20,12 @@ console.log('yargv2' , yargv2);
 
 if(arg === 'add'){
     console.log("argument add");
-    notes.addNote(argv.title, argv.body);
+    var note = notes.addNote(argv.title, argv.body);
+    if(note){
+        console.log("Note Created!", JSON.stringify(note));
+    }else{
+        console.log("Duplicate found, Note not created!")
+    }
 }else if(arg === 'remove'){
     console.log("argument remove");
     notes.remove(argv.title);

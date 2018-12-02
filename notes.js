@@ -38,8 +38,7 @@ var addNote = (title, body) => {
     if(duplicateNotes.length === 0){
         notesArray.push(note);
         saveNotes(notesArray);
-    }else{
-        console.log("Duplicates found!");
+        return note;
     }
     
 }
@@ -54,6 +53,9 @@ var getNote = (title) => {
 
 var remove = (title) => {
     console.log('Removing note', title);
+    var notes = fetchNotes();
+    var filteredNotes = notes.filter((note) => note.title != title);
+    saveNotes(filteredNotes);
 }
 
 module.exports = {
